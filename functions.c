@@ -72,33 +72,33 @@ int print_percent(va_list args)
  */
 int print_int(va_list args)
 {
-	long int i, digit, tens = 1, num, count = 0, len;
-	char neg_sign = 45;
+	long int num_i, len = 1, count = 0;
+	unsigned int num_u, num2, rem, digit;
+	char neg = '-';
 
-	num = va_arg(args, int);
-	if (num < 0)
+	num_i = va_arg(args, int);
+	if (num_i < 0)
 	{
-		write (1, &neg_sign, 1);
+		write(1, &neg, 1);
 		count++;
-		num *= -1;
+		num_i = -num_i;
 	}
-
-	len = int_len(num);
-	count += len;
-
-	for (i = 1; i < len; i++)
+	num_u = num_i;
+	num2 = num_u;
+	rem = num_u;
+	while (num2 >= 10)
 	{
-		tens *= 10;
+		num2 /= 10;
+		len *= 10;
 	}
-
-	while (tens)
+	while (len)
 	{
-		digit = num / tens;
-		digit += '0';
-		num %= tens;
+		digit = rem / len;
+		rem = rem % len;
+		digit = digit + '0';
 		write (1, &digit, 1);
-		tens /= 10;
+		count++;
+		len /= 10;
 	}
-
 	return (count);
 }
