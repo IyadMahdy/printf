@@ -38,16 +38,15 @@ int _printf(const char *format, ...)
 	va_list args;
 
 	t2f types[] = {
-		{'c', print_char},
-		{'s', print_string},
-		{'%', print_percent},
-		{'\0', NULL}
+		{'c', print_char}, {'s', print_string},
+		{'%', print_percent}, {'\0', NULL}
 	};
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
 	{
-		if (format[i++] == '%')
+		if (format[i] == '%')
 		{
+			i++;
 			space = 0;
 			for (; format[i] == ' '; i++)
 				space = 1;
