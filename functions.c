@@ -75,7 +75,7 @@ int print_int(va_list args)
 	long int i, digit, tens = 1, num, count = 0, len;
 	char neg_sign = 45;
 
-	num = va_arg(args, int);
+	num = va_arg(args, long int);
 	if (num < 0)
 	{
 		write (1, &neg_sign, 1);
