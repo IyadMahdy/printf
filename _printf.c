@@ -36,11 +36,11 @@ int _printf(const char *format, ...)
 {
 	int count = 0, i, space, j;
 	va_list args;
+	t2f types[] = {{'c', print_char}, {'s', print_string},
+		{'%', print_percent}, {'\0', NULL}};
 
 	if (!format)
 		return (-1);
-	t2f types[] = {{'c', print_char}, {'s', print_string},
-		{'%', print_percent}, {'\0', NULL}};
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
 	{
