@@ -5,7 +5,7 @@
  * @num: Number
  * Return: Length
  */
-int int_len(int num)
+int int_len(long int num)
 {
 	int count = 0;
 	while (num)
@@ -72,7 +72,7 @@ int print_percent(va_list args)
  */
 int print_int(va_list args)
 {
-	int i, digit, tens = 1, num, count = 0, len;
+	long int i, digit, tens = 1, num, count = 0, len;
 	char neg_sign = 45;
 
 	num = va_arg(args, int);

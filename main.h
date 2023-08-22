@@ -18,7 +18,7 @@ typedef struct types
 	int (*f)(va_list);
 } t2f;
 
-int int_len(int num);
+int int_len(long int num);
 int print_int(va_list args);
 int print_char(va_list args);
 int print_string(va_list args);
