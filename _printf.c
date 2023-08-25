@@ -39,7 +39,7 @@ int _printf(const char *format, ...)
 	t2f types[] = {{'c', print_char}, {'s', print_string},
 	{'%', print_percent}, {'d', print_int}, {'i', print_int},
 	{'b', print_base}, {'x', print_base}, {'X', print_base},
-	{'o', print_base}, {'\0', NULL}};
+	{'o', print_base}, {'u', print_int},{'\0', NULL}};
 
 	if (!format)
 		return (-1);
@@ -54,7 +54,7 @@ int _printf(const char *format, ...)
 				space = 1;
 			if (!format[i])
 				return (-1);
-			for (j = 0; j < 10; j++)
+			for (j = 0; j < 11; j++)
 			{
 				if (types[j].c == format[i])
 				{

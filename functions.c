@@ -79,15 +79,19 @@ int print_int(va_list args, char base_char)
 	unsigned int num_u, num2, rem, digit;
 	char neg = '-';
 
-	(void) base_char;
-	num_i = va_arg(args, int);
-	if (num_i < 0)
+	if (base_char == 'u')
+		num_u = va_arg(args, unsigned int);
+	else
 	{
-		write(1, &neg, 1);
-		count++;
-		num_i = -num_i;
+		num_i = va_arg(args, int);
+		if (num_i < 0)
+		{
+			write(1, &neg, 1);
+			count++;
+			num_i = -num_i;
+		}
+		num_u = num_i;
 	}
-	num_u = num_i;
 	num2 = num_u;
 	rem = num_u;
 	while (num2 >= 10)
