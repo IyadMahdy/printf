@@ -39,7 +39,7 @@ int _printf(const char *format, ...)
 	t2f types[] = {{'c', print_char}, {'s', print_string},
 	{'%', print_percent}, {'d', print_int}, {'i', print_int},
 	{'b', print_base}, {'x', print_base}, {'X', print_base},
-	{'o', print_base}, {'u', print_int},{'\0', NULL}};
+	{'o', print_base}, {'u', print_int}, {'\0', NULL}};
 
 	if (!format)
 		return (-1);

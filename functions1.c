@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * base_checker - includes the "A,B,C, ..." after 
+ * base_checker - includes the "A,B,C, ..." after
  * the digit 9 in uppercase or lowercase as needed
  * @num: the number to convert
  * @p: pointer to variable to store the char
@@ -23,17 +23,18 @@ void base_checker(unsigned int num, char *p, char letter_case)
 }
 
 /**
- * print_base - Prints a number to any base from decimal
+ * print_base_rec - Prints a number to any base from decimal
  * @num: Number to be converted
  * @base: Base to be converted to
- * @letter_case - Checks if the letters (numbers after 9)
+ * @letter_case: Checks if the letters (numbers after 9)
  * should be capital or small
- * @p: Pointer to keep track of how 
+ * @p: Pointer to keep track of how
  * many function calls happened
  *
  * Returns: Nothing
  */
-void print_base_rec(unsigned int num, unsigned int base, char letter_case, unsigned int *p)
+void print_base_rec(unsigned int num, unsigned int base,
+		char letter_case, unsigned int *p)
 {
 	char c = '\0';
 
@@ -53,17 +54,17 @@ void print_base_rec(unsigned int num, unsigned int base, char letter_case, unsig
 /**
  * print_base - Prints a number in any base from decimal
  * @args: Number to be converted
- * @base: Base
+ * @character: Character from format
  *
  * Return: length of base characters
  */
-int print_base(va_list args, char base_char)
+int print_base(va_list args, char character)
 {
 	unsigned int num, len = 0, base;
 
 	num = va_arg(args, unsigned int);
 
-	switch (base_char)
+	switch (character)
 	{
 		case 'b':
 			base = 2;
@@ -76,6 +77,6 @@ int print_base(va_list args, char base_char)
 			base = 8;
 	}
 
-	print_base_rec(num, base, base_char, &len);
+	print_base_rec(num, base, character, &len);
 	return (len);
 }

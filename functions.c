@@ -8,6 +8,7 @@
 int int_len(long int num)
 {
 	int count = 0;
+
 	while (num)
 	{
 		num /= 10;
@@ -19,14 +20,15 @@ int int_len(long int num)
 /**
  * print_char - Prints char
  * @args: Pointer to char in parameter
+ * @character: character from format
  *
  * Return: Length of char (1)
  */
-int print_char(va_list args, char base_char)
+int print_char(va_list args, char character)
 {
 	char c = va_arg(args, int);
 
-	(void) base_char;
+	(void) character;
 	write(1, &c, 1);
 
 	return (1);
@@ -35,15 +37,16 @@ int print_char(va_list args, char base_char)
 /**
  * print_string - Prints string
  * @args: String from parameter
+ * @character: character from format
  *
  * Return: Length of string
  */
-int print_string(va_list args, char base_char)
+int print_string(va_list args, char character)
 {
 	int i;
 	char *str;
 
-	(void) base_char;
+	(void) character;
 	str = va_arg(args, char *);
 	if (!str)
 		str = "(null)";
@@ -56,14 +59,16 @@ int print_string(va_list args, char base_char)
 /**
  * print_percent - Prints Percent
  * @args: args
+ * @character: character from format
+ *
  * Return: 1
  */
-int print_percent(va_list args, char base_char)
+int print_percent(va_list args, char character)
 {
 	char c = 37;
 
 	(void) args;
-	(void) base_char;
+	(void) character;
 	write(1, &c, 1);
 	return (1);
 }
@@ -71,15 +76,17 @@ int print_percent(va_list args, char base_char)
 /**
  * print_int - Prints Int
  * @args: args
+ * @character: Character from format
+ *
  * Return: Length of int
  */
-int print_int(va_list args, char base_char)
+int print_int(va_list args, char character)
 {
 	long int num_i, len = 1, count = 0;
 	unsigned int num_u, num2, rem, digit;
 	char neg = '-';
 
-	if (base_char == 'u')
+	if (character == 'u')
 		num_u = va_arg(args, unsigned int);
 	else
 	{
@@ -104,7 +111,7 @@ int print_int(va_list args, char base_char)
 		digit = rem / len;
 		rem = rem % len;
 		digit = digit + '0';
-		write (1, &digit, 1);
+		write(1, &digit, 1);
 		count++;
 		len /= 10;
 	}
