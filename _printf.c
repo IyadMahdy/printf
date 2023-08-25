@@ -37,7 +37,9 @@ int _printf(const char *format, ...)
 	int count = 0, i, space, j;
 	va_list args;
 	t2f types[] = {{'c', print_char}, {'s', print_string},
-	{'%', print_percent}, {'d', print_int}, {'i', print_int}, {'\0', NULL}};
+	{'%', print_percent}, {'d', print_int}, {'i', print_int},
+	{'b', print_base}, {'x', print_base}, {'X', print_base},
+	{'o', print_base}, {'\0', NULL}};
 
 	if (!format)
 		return (-1);
@@ -52,11 +54,11 @@ int _printf(const char *format, ...)
 				space = 1;
 			if (!format[i])
 				return (-1);
-			for (j = 0; j < 6; j++)
+			for (j = 0; j < 10; j++)
 			{
 				if (types[j].c == format[i])
 				{
-					count += types[j].f(args);
+					count += types[j].f(args, format[i]);
 					break;
 				}
 				else if (!types[j].c)

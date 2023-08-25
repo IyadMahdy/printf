@@ -15,15 +15,18 @@
 typedef struct types
 {
 	char c;
-	int (*f)(va_list);
+	int (*f)(va_list, char);
 } t2f;
 
 int int_len(long int num);
-int print_int(va_list args);
-int print_char(va_list args);
-int print_string(va_list args);
-int print_percent(va_list args);
+int print_int(va_list args, char base_char);
+int print_char(va_list args, char base_char);
+int print_string(va_list args, char base_char);
+int print_percent(va_list args, char base_char);
 int print_none(char c, int space);
+int print_base(va_list args, char base_char);
+void print_base_rec(unsigned int num, unsigned int base, char letter_case, unsigned int *p);
+void base_checker(unsigned int num, char *p, char letter_case);
 int _printf(const char *format, ...);
 
 #endif

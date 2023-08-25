@@ -22,10 +22,11 @@ int int_len(long int num)
  *
  * Return: Length of char (1)
  */
-int print_char(va_list args)
+int print_char(va_list args, char base_char)
 {
 	char c = va_arg(args, int);
 
+	(void) base_char;
 	write(1, &c, 1);
 
 	return (1);
@@ -37,11 +38,12 @@ int print_char(va_list args)
  *
  * Return: Length of string
  */
-int print_string(va_list args)
+int print_string(va_list args, char base_char)
 {
 	int i;
 	char *str;
 
+	(void) base_char;
 	str = va_arg(args, char *);
 	if (!str)
 		str = "(null)";
@@ -56,11 +58,12 @@ int print_string(va_list args)
  * @args: args
  * Return: 1
  */
-int print_percent(va_list args)
+int print_percent(va_list args, char base_char)
 {
 	char c = 37;
 
 	(void) args;
+	(void) base_char;
 	write(1, &c, 1);
 	return (1);
 }
@@ -70,12 +73,13 @@ int print_percent(va_list args)
  * @args: args
  * Return: Length of int
  */
-int print_int(va_list args)
+int print_int(va_list args, char base_char)
 {
 	long int num_i, len = 1, count = 0;
 	unsigned int num_u, num2, rem, digit;
 	char neg = '-';
 
+	(void) base_char;
 	num_i = va_arg(args, int);
 	if (num_i < 0)
 	{
