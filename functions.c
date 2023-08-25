@@ -21,15 +21,17 @@ int int_len(long int num)
  * print_char - Prints char
  * @args: Pointer to char in parameter
  * @character: character from format
+ * @buffer: Buffer
+ * @idx: Pointer to idx variable
  *
  * Return: Length of char (1)
  */
-int print_char(va_list args, char character)
+int print_char(va_list args, char character, char buffer[], int *idx)
 {
 	char c = va_arg(args, int);
 
 	(void) character;
-	write(1, &c, 1);
+	buffer_insert(c, buffer, idx);
 
 	return (1);
 }
@@ -38,10 +40,12 @@ int print_char(va_list args, char character)
  * print_string - Prints string
  * @args: String from parameter
  * @character: character from format
+ * @buffer: Buffer
+ * @idx: Pointer to idx variable
  *
  * Return: Length of string
  */
-int print_string(va_list args, char character)
+int print_string(va_list args, char character, char buffer[], int *idx)
 {
 	int i;
 	char *str;
@@ -52,7 +56,7 @@ int print_string(va_list args, char character)
 		str = "(null)";
 
 	for (i = 0; str[i]; i++)
-		write(1, &(str[i]), 1);
+		buffer_insert(str[i], buffer, idx);
 	return (i);
 }
 
@@ -60,16 +64,18 @@ int print_string(va_list args, char character)
  * print_percent - Prints Percent
  * @args: args
  * @character: character from format
+ * @buffer: Buffer
+ * @idx: Pointer to idx variable
  *
  * Return: 1
  */
-int print_percent(va_list args, char character)
+int print_percent(va_list args, char character, char buffer[], int *idx)
 {
 	char c = 37;
 
 	(void) args;
 	(void) character;
-	write(1, &c, 1);
+	buffer_insert(c, buffer, idx);
 	return (1);
 }
 
@@ -77,10 +83,12 @@ int print_percent(va_list args, char character)
  * print_int - Prints Int
  * @args: args
  * @character: Character from format
+ * @buffer: Buffer
+ * @idx: Pointer to idx variable
  *
  * Return: Length of int
  */
-int print_int(va_list args, char character)
+int print_int(va_list args, char character, char buffer[], int *idx)
 {
 	long int num_i, len = 1, count = 0;
 	unsigned int num_u, num2, rem, digit;
@@ -93,7 +101,7 @@ int print_int(va_list args, char character)
 		num_i = va_arg(args, int);
 		if (num_i < 0)
 		{
-			write(1, &neg, 1);
+			buffer_insert(neg, buffer, idx);
 			count++;
 			num_i = -num_i;
 		}
@@ -111,7 +119,7 @@ int print_int(va_list args, char character)
 		digit = rem / len;
 		rem = rem % len;
 		digit = digit + '0';
-		write(1, &digit, 1);
+		buffer_insert(digit, buffer, idx);
 		count++;
 		len /= 10;
 	}

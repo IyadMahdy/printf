@@ -4,10 +4,12 @@
  * print_none - For when the format specifier is unknown
  * @c: char
  * @space: Checks space
+ * @buffer: Buffer
+ * @idx: Pointer to idx variable
  *
  * Return: Number of chars printed
  */
-int print_none(char c, int space)
+int print_none(char c, int space, char buffer[], int *idx)
 {
 	char c2, pcnt, spc;
 	int count = 2;
@@ -15,14 +17,14 @@ int print_none(char c, int space)
 	c2 = c;
 	pcnt = 37;
 	spc = 32;
-	write(1, &pcnt, 1);
+	buffer_insert(pcnt, buffer, idx);
 
 	if (space)
 	{
-		write(1, &spc, 1);
+		buffer_insert(spc, buffer, idx);
 		count++;
 	}
-	write(1, &c2, 1);
+	buffer_insert(c2, buffer, idx);
 	return (count);
 }
 
@@ -34,14 +36,16 @@ int print_none(char c, int space)
  */
 int _printf(const char *format, ...)
 {
-	int count = 0, i, space, j;
+	int count = 0, i, space, j, idx = 0;
+	char *buffer;
 	va_list args;
 	t2f types[] = {{'c', print_char}, {'s', print_string},
 	{'%', print_percent}, {'d', print_int}, {'i', print_int},
 	{'b', print_base}, {'x', print_base}, {'X', print_base},
 	{'o', print_base}, {'u', print_int}, {'\0', NULL}};
 
-	if (!format)
+	buffer = malloc(sizeof(char) * BUFF_SIZE);
+	if (!format || !buffer)
 		return (-1);
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
@@ -58,19 +62,20 @@ int _printf(const char *format, ...)
 			{
 				if (types[j].c == format[i])
 				{
-					count += types[j].f(args, format[i]);
+					count += types[j].f(args, format[i], buffer, &idx);
 					break;
 				}
 				else if (!types[j].c)
-					count += print_none(format[i], space);
+					count += print_none(format[i], space, buffer, &idx);
 			}
 		}
 		else
 		{
-			write(1, &format[i], 1);
+			buffer_insert(format[i], buffer, &idx);
 			count++;
 		}
 	}
+	flush(buffer, &idx);
 	va_end(args);
 	return (count);
 }
